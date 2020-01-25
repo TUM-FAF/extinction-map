@@ -1,6 +1,6 @@
 import React from "react";
 import "./Map.css";
-import { Map, Marker, Popup, TileLayer } from "react-leaflet";
+import { Map, TileLayer, ImageOverlay, Popup } from "react-leaflet";
 
 const position = [47.00367, 28.907089];
 
@@ -12,18 +12,36 @@ const natGeo =
 
 const map = "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png";
 
-export const MapContainer = () => {
+function getRandomBounds() {
+  const randomLat = Math.random() * 180 - 90;
+  const randomLong = Math.random() * 360 - 180;
+
+  return [
+    [randomLat, randomLong],
+    [randomLat + 10, randomLong + 10]
+  ];
+}
+
+/**
+ *
+ * @param {{
+ * data: import("../App").ExtinctAnimal[]
+ * }} props
+ */
+export const MapContainer = props => {
+  const extinctAnimals = props.data;
+
   return (
     <>
-      <Map center={position} zoom={4} id="mapid">
+      <Map onClick={e => console.log(e)} center={position} zoom={4} id="mapid">
         <TileLayer url={natGeo} />
-        <Marker position={position}>
-          <Popup>
-            A pretty CSS3 popup.
-            <br />
-            Easily customizable.
-          </Popup>
-        </Marker>
+        {extinctAnimals.map(el => (
+          <ImageOverlay
+            key={el.name}
+            url={el.imgUrl}
+            bounds={getRandomBounds()}
+          />
+        ))}
       </Map>
     </>
   );
