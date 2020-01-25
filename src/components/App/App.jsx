@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { parser } from "../../services/parser";
+// import { parser } from "../../services/parser";
+import { MapContainer } from '../Map';
 
 export const App = () => {
   const [data, setData] = useState(null);
 
   async function getData() {
-    const parsedData = await parser();
-    setData(parsedData);
+    // const parsedData = await parser();
+    // setData(parsedData);
   }
 
   useEffect(() => {
@@ -16,7 +17,7 @@ export const App = () => {
 
   return (
     <div className="App">
-      {data ? data.map(el => <p key={el.name}>{el.name}</p>) : <h1>No data</h1>}
+      <MapContainer />
     </div>
   );
 };
