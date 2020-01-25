@@ -1,19 +1,11 @@
-const extinctMammalsUrl: string =
+const extinctMammalsUrl =
   "https://en.wikipedia.org/w/api.php?origin=*&action=parse&page=List%20of%20recently%20extinct%20mammals&format=json";
 
-interface WikiResult {
-  parse: {
-    title: string;
-    text: {
-      "*": string;
-    };
-  };
-}
 
 async function getDummyHtml() {
-  const res: Response = await fetch(extinctMammalsUrl);
-  const result: WikiResult = await res.json();
-  const stringHtml: string = result["parse"]["text"]["*"];
+  const res = await fetch(extinctMammalsUrl);
+  const result = await res.json();
+  const stringHtml = result["parse"]["text"]["*"];
   const dummyHtml = document.createElement("html");
   dummyHtml.innerHTML = stringHtml;
 
@@ -26,9 +18,6 @@ export async function parser() {
   const tableBody = table.getElementsByTagName("tbody")[0];
   const rows = tableBody.getElementsByTagName("tr");
 
-  // console.log(rows);
-
-  // @ts-ignore
   const newRows = [...rows];
   newRows.shift();
 
@@ -48,6 +37,8 @@ export async function parser() {
       const country = cols[4].innerText.replace(/(\r\n|\n|\r)/gm, "");
       const year = cols[3].innerText.replace(/(\r\n|\n|\r)/gm, "");
       const imgUrl = img.getAttribute("src");
+
+
 
       return {
         name,
