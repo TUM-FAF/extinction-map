@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { parser } from './services/parser';
-import { App } from './components/App';
+import {parser} from './services/parser';
 import * as serviceWorker from './serviceWorker';
+import {App} from "./components/App";
+import {MapComponent} from "./components/MapComponent";
 
 parser();
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
