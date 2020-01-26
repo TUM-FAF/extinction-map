@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "68a6ce2811d720b4ae60bf2935bf16db",
+    "revision": "2e2feaa2db86540fb715c42790d9a9b8",
     "url": "/extinction-map/index.html"
   },
   {
