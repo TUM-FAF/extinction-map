@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "87f4062d558eb264ad15087268da2041",
+    "revision": "b584a8a26b654d8d70e80427c353bf8c",
     "url": "/extinction-map/index.html"
   },
   {
-    "revision": "eca0a03d233ff104c85d",
-    "url": "/extinction-map/static/css/main.ecca4bf9.chunk.css"
+    "revision": "e6075864958e8997ed20",
+    "url": "/extinction-map/static/css/main.12e104e2.chunk.css"
   },
   {
     "revision": "96b63b18f223ed11c441",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/extinction-map/static/js/2.b1eb90bb.chunk.js.LICENSE"
   },
   {
-    "revision": "eca0a03d233ff104c85d",
-    "url": "/extinction-map/static/js/main.9a22c630.chunk.js"
+    "revision": "e6075864958e8997ed20",
+    "url": "/extinction-map/static/js/main.0015fb45.chunk.js"
   },
   {
     "revision": "ccb39abf2fc69ccbf6b4",
