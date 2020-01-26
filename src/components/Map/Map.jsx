@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "./Map.css";
-import { Map, TileLayer, ImageOverlay, Popup } from "react-leaflet";
+import { Map, TileLayer, ImageOverlay } from "react-leaflet";
 
 const position = [47.00367, 28.907089];
 
@@ -25,23 +25,32 @@ function getRandomBounds() {
 /**
  *
  * @param {{
- * data: import("../App").ExtinctAnimal[]
+ * data: import("../App").ExtinctAnimal[];
+ * sliderValue: number;
  * }} props
  */
 export const MapContainer = props => {
   const extinctAnimals = props.data;
 
+  const memoizedValue = useMemo(
+    () => extinctAnimals.map(_ => getRandomBounds()),
+    [extinctAnimals]
+  );
+
   return (
     <>
       <Map onClick={e => console.log(e)} center={position} zoom={4} id="mapid">
         <TileLayer url={natGeo} />
-        {extinctAnimals.map(el => (
-          <ImageOverlay
-            key={el.name}
-            url={el.imgUrl}
-            bounds={getRandomBounds()}
-          />
-        ))}
+        {console.log(props.sliderValue)}
+        {extinctAnimals.map((el, i) =>
+          el.year >= props.sliderValue || props.sliderValue === Infinity ? (
+            <ImageOverlay
+              key={el.name}
+              url={el.imgUrl}
+              bounds={memoizedValue[i]}
+            />
+          ) : null
+        )}
       </Map>
     </>
   );
