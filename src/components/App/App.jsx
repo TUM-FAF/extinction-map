@@ -2,14 +2,20 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import { parser } from "../../services/parser";
 import { MapContainer } from "../Map";
+import dataJson from "../../services/africaj.json";
 import { StyledSlider, Track, Thumb } from "../StyledSlider";
 
 /**
  * @typedef {Object} ExtinctAnimal
  * @property {string} name
- * @property {string} country
+ * @property {[[number, number], [number, number]]} bounds
+ * @property {string} region
  * @property {number} year
- * @property {string} imgUrl
+ * @property {{
+ *  src: string,
+ *  width: string,
+ *  height: string
+ * }} image
  */
 
 // function mobilecheck() {
@@ -32,9 +38,9 @@ import { StyledSlider, Track, Thumb } from "../StyledSlider";
 
 export const App = () => {
   /**
-   * @type {[ExtinctAnimal[], Function]} data
+   * @type {ExtinctAnimal[]}
    */
-  const [data, setData] = useState([]);
+  const data = dataJson.animals;
 
   const minSliderValue = Math.min(...data.map(el => el.year));
   const maxSliderValue = Math.max(...data.map(el => el.year));
@@ -42,27 +48,19 @@ export const App = () => {
 
   const [sliderValue, setSliderValue] = useState(defaultSliderValue);
 
-  async function getData() {
-    const parsedData = await parser();
-    setData(parsedData);
-  }
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   return (
     <div className="App">
       <MapContainer data={data} sliderValue={sliderValue} />
       {data.length && (
-        <StyledSlider
-          min={minSliderValue}
-          max={maxSliderValue}
-          onChange={setSliderValue}
-          defaultValue={defaultSliderValue}
-          renderTrack={Track}
-          renderThumb={Thumb}
-        />
+          <StyledSlider
+            min={minSliderValue}
+            max={maxSliderValue}
+            onChange={setSliderValue}
+            defaultValue={defaultSliderValue}
+            renderTrack={Track}
+            renderThumb={Thumb}
+          />
       )}
     </div>
   );
