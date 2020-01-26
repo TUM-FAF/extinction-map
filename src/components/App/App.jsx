@@ -75,7 +75,7 @@ export const App = () => {
   }
 
   return (
-    <div className="App">
+    <div className="App disable-select">
       <MapContainer data={combinedData} sliderValues={sliderValues} />
       <ReactSlider
         className={isMobile ? "vertical-slider" : "horizontal-slider"}
