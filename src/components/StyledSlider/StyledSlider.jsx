@@ -5,7 +5,7 @@ import ReactSlider from "react-slider";
 export const StyledSlider = styled(ReactSlider)`
   width: 100%;
   height: 25px;
-  postion: fixed;
+  position: fixed !important;
   z-index: 1000;
   bottom: 40px;
 `;

@@ -1,6 +1,7 @@
 import React from "react";
 import "./Map.css";
-import { Map, TileLayer, ImageOverlay } from "react-leaflet";
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
 
 const position = [47.00367, 28.907089];
 
@@ -11,6 +12,29 @@ const natGeo =
   "https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}";
 
 const map = "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png";
+
+/**
+ *
+ * @param {import("../App").ExtinctAnimal} el
+ */
+function createNewMarker(el) {
+  const icon = new L.Icon({
+    iconUrl: el.image.src,
+    iconAnchor: [5, 55],
+    popupAnchor: [10, -44],
+    iconSize: [parseInt(el.image.width), parseInt(el.image.height)]
+  });
+
+  return (
+    <Marker key={el.name} position={el.bounds[0]} icon={icon}>
+      <Popup>
+        <strong>Name:</strong> {el.name}
+        <br />
+        <strong>Region:</strong> {el.region}
+      </Popup>
+    </Marker>
+  );
+}
 
 /**
  *
@@ -26,9 +50,9 @@ export const MapContainer = props => {
     <>
       <Map onClick={e => console.log(e)} center={position} zoom={3} id="mapid">
         <TileLayer url={natGeo} />
-        {extinctAnimals.map((el, i) =>
+        {extinctAnimals.map(el =>
           el.year >= props.sliderValue || props.sliderValue === Infinity ? (
-            <ImageOverlay key={el.name} url={el.image.src} bounds={el.bounds} />
+            createNewMarker(el)
           ) : null
         )}
       </Map>
