@@ -16,8 +16,9 @@ const map = "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png";
 /**
  *
  * @param {import("../App").ExtinctAnimal} el
+ * @param {number} index
  */
-function createNewMarker(el) {
+function createNewMarker(el, index) {
   const icon = new L.Icon({
     iconUrl: el.image.src,
     iconAnchor: [5, 55],
@@ -26,7 +27,7 @@ function createNewMarker(el) {
   });
 
   return (
-    <Marker key={el.name} position={el.bounds[0]} icon={icon}>
+    <Marker key={el.name + index} position={el.position} icon={icon}>
       <Popup>
         <strong>Name:</strong> {el.name}
         <br />
@@ -50,9 +51,9 @@ export const MapContainer = props => {
     <>
       <Map onClick={e => console.log(e)} center={position} zoom={3} id="mapid">
         <TileLayer url={natGeo} />
-        {extinctAnimals.map(el =>
+        {extinctAnimals.map((el, index) =>
           el.year >= props.sliderValue || props.sliderValue === Infinity ? (
-            createNewMarker(el)
+            createNewMarker(el, index)
           ) : null
         )}
       </Map>
