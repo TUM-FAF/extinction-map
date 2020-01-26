@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { parser } from "../../services/parser";
 import { MapContainer } from "../Map";
-import dataJson from "../../services/africaj.json";
-import { StyledSlider, Track, Thumb } from "../StyledSlider";
+import dataJson from "../../data/data.json";
+
+/**
+ * @typedef {Object} Data
+ * @property {ExtinctAnimal[]} Africa
+ * @property {ExtinctAnimal[]} Asia
+ * @property {ExtinctAnimal[]} NorthAmerica
+ * @property {ExtinctAnimal[]} Oceania
+ * @property {ExtinctAnimal[]} SouthAmerica
+ */
 
 /**
  * @typedef {Object} ExtinctAnimal
  * @property {string} name
  * @property {[[number, number], [number, number]]} bounds
  * @property {string} region
+ * @property {[number, number]} position
  * @property {number} year
  * @property {{
  *  src: string,
@@ -38,30 +46,27 @@ import { StyledSlider, Track, Thumb } from "../StyledSlider";
 
 export const App = () => {
   /**
+   * @type {Data}
+   */
+  const data = dataJson;
+
+  /**
    * @type {ExtinctAnimal[]}
    */
-  const data = dataJson.animals;
+  const combinedData = Object.keys(data).reduce(
+    (acc, el) => acc.concat(data[el]),
+    []
+  );
 
-  const minSliderValue = Math.min(...data.map(el => el.year));
-  const maxSliderValue = Math.max(...data.map(el => el.year));
+  const minSliderValue = Math.min(...combinedData.map(el => el.year));
+  const maxSliderValue = Math.max(...combinedData.map(el => el.year));
   const defaultSliderValue = minSliderValue;
 
   const [sliderValue, setSliderValue] = useState(defaultSliderValue);
 
-
   return (
     <div className="App">
-      <MapContainer data={data} sliderValue={sliderValue} />
-      {data.length && (
-          <StyledSlider
-            min={minSliderValue}
-            max={maxSliderValue}
-            onChange={setSliderValue}
-            defaultValue={defaultSliderValue}
-            renderTrack={Track}
-            renderThumb={Thumb}
-          />
-      )}
+      <MapContainer data={combinedData} sliderValue={sliderValue} />
     </div>
   );
 };
