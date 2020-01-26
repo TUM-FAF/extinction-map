@@ -1,5 +1,14 @@
+.disable-select {
+  user-select: none; /* supported by Chrome and Opera */
+ -webkit-user-select: none; /* Safari */
+ -khtml-user-select: none; /* Konqueror HTML */
+ -moz-user-select: none; /* Firefox */
+ -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
 .horizontal-slider {
   position: fixed !important;
+  touch-action: none;
   z-index: 1000;
   bottom: 10px;
   left: 10vw;
@@ -10,6 +19,7 @@
 
 .vertical-slider {
   position: fixed !important;
+  touch-action: none;
   z-index: 1000;
   bottom: 5vh;
   left: 10px;
