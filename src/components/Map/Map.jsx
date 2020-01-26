@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import "./Map.css";
 import { Map, TileLayer, ImageOverlay } from "react-leaflet";
 
@@ -12,16 +12,6 @@ const natGeo =
 
 const map = "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png";
 
-function getRandomBounds() {
-  const randomLat = Math.random() * 180 - 90;
-  const randomLong = Math.random() * 360 - 180;
-
-  return [
-    [randomLat, randomLong],
-    [randomLat + 10, randomLong + 10]
-  ];
-}
-
 /**
  *
  * @param {{
@@ -32,23 +22,13 @@ function getRandomBounds() {
 export const MapContainer = props => {
   const extinctAnimals = props.data;
 
-  const memoizedValue = useMemo(
-    () => extinctAnimals.map(_ => getRandomBounds()),
-    [extinctAnimals]
-  );
-
   return (
     <>
-      <Map onClick={e => console.log(e)} center={position} zoom={4} id="mapid">
+      <Map onClick={e => console.log(e)} center={position} zoom={3} id="mapid">
         <TileLayer url={natGeo} />
-        {console.log(props.sliderValue)}
         {extinctAnimals.map((el, i) =>
           el.year >= props.sliderValue || props.sliderValue === Infinity ? (
-            <ImageOverlay
-              key={el.name}
-              url={el.imgUrl}
-              bounds={memoizedValue[i]}
-            />
+            <ImageOverlay key={el.name} url={el.image.src} bounds={el.bounds} />
           ) : null
         )}
       </Map>

@@ -11,10 +11,10 @@ export const StyledSlider = styled(ReactSlider)`
 `;
 
 const StyledThumb = styled.div`
-  margin-top: -5px;
-  height: 35px;
-  line-height: 35px;
-  width: 35px;
+  margin-top: -20px;
+  height: 60px;
+  line-height: 60px;
+  width: 60px;
   text-align: center;
   font-size: 20px;
   font-width: 700;
@@ -36,4 +36,6 @@ const StyledTrack = styled.div`
   border-radius: 999px;
 `;
 
-export const Track = (props, state) => <StyledTrack {...props} index={state.index} />;
+export const Track = (props, state) => (
+  <StyledTrack {...props} index={state.index} />
+);
