@@ -49,7 +49,5 @@ export async function parser() {
     })
     .filter(el => el.country);
 
-  console.log(formatedData);
-
   return formatedData;
 }
