@@ -41,22 +41,21 @@ function createNewMarker(el, index) {
  *
  * @param {{
  * data: import("../App").ExtinctAnimal[];
- * sliderValue: number;
+ * sliderValues: string;
  * }} props
  */
 export const MapContainer = props => {
   const extinctAnimals = props.data;
+  const sliderValues = props.sliderValues.split(",");
 
   return (
-    <>
-      <Map onClick={e => console.log(e)} center={position} zoom={3} id="mapid">
-        <TileLayer url={natGeo} />
-        {extinctAnimals.map((el, index) =>
-          el.year >= props.sliderValue || props.sliderValue === Infinity ? (
-            createNewMarker(el, index)
-          ) : null
-        )}
-      </Map>
-    </>
+    <Map center={position} zoom={3} id="mapid">
+      <TileLayer url={natGeo} />
+      {extinctAnimals.map((el, index) =>
+        el.year >= sliderValues[0] && el.year <= sliderValues[1]
+          ? createNewMarker(el, index)
+          : null
+      )}
+    </Map>
   );
 };
