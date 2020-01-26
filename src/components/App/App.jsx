@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import { MapContainer } from "../Map";
+import logo from '../../data/logo.png'
 import dataJson from "../../data/data.json";
 import ReactSlider from "react-slider";
 
@@ -76,6 +77,9 @@ export const App = () => {
 
   return (
     <div className="App disable-select">
+      <div id="desc">Extinction Map
+      <p>Animals that extinct <br/>in last 500 years</p></div>
+      <img id="logo" src={logo} alt="logo" width="90"/>
       <MapContainer data={combinedData} sliderValues={sliderValues} />
       <ReactSlider
         className={isMobile ? "vertical-slider" : "horizontal-slider"}
