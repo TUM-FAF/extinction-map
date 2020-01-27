@@ -72,6 +72,14 @@ export const App = () => {
   const [sliderValues, setSliderValues] = useState(defaultSliderValues);
 
   function onChange(values) {
+    /**
+     * @todo Fix the problem with updating when an array is used as value
+     * @desc There is a problem when dragging the slider. 
+     * The onChange function is triggered the values come as [value1, value2]
+     * but when updating the state, React doesn't rerender MapContainer
+     * because in the state there is same array. To solve this issue, 
+     * array is saved as string and in MapContainer we split the string to get value.
+     */
     setSliderValues(values.toString());
   }
 
